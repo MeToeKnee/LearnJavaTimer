@@ -1,4 +1,4 @@
 LearnJavaTimer
 ==============
 
-A small timer project to help me learn Java
+A small timer project to help me learn Java.
