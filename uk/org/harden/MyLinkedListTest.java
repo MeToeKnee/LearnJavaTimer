@@ -1,9 +1,16 @@
 package uk.org.harden;
 
-public class MyLinkedListTest {
+class MyLinkedListTest {
 
     public static void main(String[] args) {
         MyLinkedList testList = new MyLinkedList();
+
+        System.out.println("Byte    : " + Byte.MAX_VALUE);
+        System.out.println("Short   : " + Short.MAX_VALUE);
+        System.out.println("Integer : " + Integer.MAX_VALUE);
+        System.out.println("Long    : " + Long.MAX_VALUE);
+        System.out.println("Float   : " + Float.MAX_VALUE);
+        System.out.println("Double  : " + Double.MAX_VALUE);
 
         // Add elements to the end of the list
         System.out.println(testList.add("One"));
@@ -19,15 +26,17 @@ public class MyLinkedListTest {
         System.out.println(testList.add("Twenty", 3));
 
         // Exercise the list: to_string, size, get, remove
-        System.out.println("testList           : " + testList);
-        System.out.println("testList.size()    : " + testList.size());
-        System.out.println("testList.get(3)    : " + testList.get(3));
-        System.out.println("testList.remove(2) : " + testList.remove(2));
-        System.out.println("testList.get(3)    : " + testList.get(3));
-        System.out.println("testList.size()    : " + testList.size());
-        System.out.println("testList           : " + testList);
-        System.out.println("testList.remove(1) : " + testList.remove(1));
-        System.out.println("testList           : " + testList);
+        System.out.println("The List           : " + testList);
+        System.out.println("The List.size()    : " + testList.size());
+        System.out.println("The List.get(3)    : " + testList.get(3));
+        System.out.println("The List.remove(2) : " + testList.remove(2));
+        System.out.println("The List.get(3)    : " + testList.get(3));
+        System.out.println("The List.size()    : " + testList.size());
+        System.out.println("The List           : " + testList);
+        System.out.println("The List.remove(1) : " + testList.remove(1));
+        System.out.println("The List           : " + testList);
+        System.out.println("The List.get(0)    : " + testList.get(0));
+        System.out.println("The List.get(13)   : " + testList.get(13));
 
     }
 }

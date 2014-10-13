@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public abstract class TimerTCP {
+@SuppressWarnings("UnnecessarySemicolon")
+class TimerTCP {
 
     private static final Logger LOGGER = Logger.getLogger(TimerDatabase.class.getName());
 
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean TimerTCPSend(Map<String, ArrayList<String>> statsTable) {
         boolean result = false;
         int retries = TimerConstants.TCP_RETRIES;

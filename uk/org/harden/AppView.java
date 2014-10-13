@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 //import java.awt.*;
 
 
-public class AppView extends JPanel implements ActionListener {
+class AppView extends JPanel implements ActionListener {
 
     //private static final Logger LOGGER = Logger.getLogger(AppView.class.getName());
 
@@ -86,7 +86,7 @@ public class AppView extends JPanel implements ActionListener {
         timerDatabase.tdAddTimer(newContentPane.getUuid(), count);
     }
 
-    protected void appMessage(final String message) {
+    void appMessage(final String message) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 final String threadName = Thread.currentThread().getName();
@@ -96,7 +96,7 @@ public class AppView extends JPanel implements ActionListener {
         });
     }
 
-    protected void collectStats(final String uuid, final String action) {
+    void collectStats(final String uuid, final String action) {
         if (uuid.length() > 0) {
             final String threadName = Thread.currentThread().getName();
             taskOutput.append(threadName + ": " + "Update stats" + TimerConstants.NEW_LINE);

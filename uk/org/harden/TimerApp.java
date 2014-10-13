@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 //import java.util.logging.Logger;
 
-public class TimerApp {
+class TimerApp {
 
     //private static final Logger LOGGER = Logger.getLogger(TimerApp.class.getName());
 
@@ -16,7 +16,7 @@ public class TimerApp {
         });
     }
 
-    public static void runProgram() {
+    private static void runProgram() {
         final JFrame guiFrame = new JFrame();
         guiFrame.setLayout(new BorderLayout());
 
@@ -24,8 +24,11 @@ public class TimerApp {
         guiFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         guiFrame.setTitle("Timer");
 
-        JComponent mainPane = new AppView(3);
-
+        JComponent mainPane = new AppView(2 + (int) (Math.random() * 4));
+        System.out.println(Math.random());
+        System.out.println(Math.random());
+        System.out.println(Math.random());
+        System.out.println(Math.random());
         guiFrame.setContentPane(mainPane);
         guiFrame.pack();
         guiFrame.setSize(900, 470);

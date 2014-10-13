@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class ReportServer {
+@SuppressWarnings("UnnecessarySemicolon")
+class ReportServer {
 
     private static final Logger LOGGER = Logger.getLogger(TimerApp.class.getName());
 
@@ -22,6 +23,7 @@ public class ReportServer {
             Map<String, ArrayList<String>> clientObject;
             String clientSentence;
 
+            //noinspection InfiniteLoopStatement
             while (true) {
                 try (
                         Socket clientSocket = MyService.accept();
@@ -34,6 +36,7 @@ public class ReportServer {
 
                     try {
                         Object object = objectInput.readObject();
+                        //noinspection unchecked
                         clientObject = (Map<String, ArrayList<String>>) object;
                         rows = clientObject.size();
                         cols = clientObject.get("Header").size();

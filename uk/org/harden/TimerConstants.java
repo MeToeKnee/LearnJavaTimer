@@ -1,6 +1,6 @@
 package uk.org.harden;
 
-public abstract class TimerConstants {
+final class TimerConstants {
 
     static final String ACTION_DELETE = "Delete";
     static final String ACTION_RESET = "Reset";

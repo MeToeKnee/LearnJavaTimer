@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 //import java.util.concurrent.atomic.AtomicInteger;
 
-public class TimerView extends JPanel implements ActionListener, PropertyChangeListener {
+class TimerView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private static final Logger LOGGER = Logger.getLogger(TimerView.class.getName());
 
@@ -96,7 +96,7 @@ public class TimerView extends JPanel implements ActionListener, PropertyChangeL
         add(timerPanel);
     }
 
-    public static float getPercentage(int n, int total) {
+    private static float getPercentage(int n, int total) {
         float proportion = ((float) n) / ((float) total);
         return proportion * 100;
     }
@@ -161,12 +161,12 @@ public class TimerView extends JPanel implements ActionListener, PropertyChangeL
         }
     }
 
-    class Task extends SwingWorker<Void, Void> {
+    private class Task extends SwingWorker<Void, Void> {
         /*
          * Main task. Executed in background thread.
          */
         @Override
-        public Void doInBackground() {
+        protected Void doInBackground() {
             startButton.setEnabled(false);
             stopButton.setEnabled(true);
             resetButton.setEnabled(false);

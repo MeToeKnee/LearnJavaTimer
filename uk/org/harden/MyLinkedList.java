@@ -29,7 +29,7 @@ public class MyLinkedList {
     }
 
     // reference to the head node.
-    private Node head;
+    private final Node head;
     private int  listCount;
 
     // LinkedList constructor

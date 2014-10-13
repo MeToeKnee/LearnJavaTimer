@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 //import org.h2.tools.DeleteDbFiles;
 
-public class TimerDatabase {
+@SuppressWarnings("UnnecessarySemicolon")
+class TimerDatabase {
 
     private static final Logger LOGGER = Logger.getLogger(TimerDatabase.class.getName());
 
@@ -137,6 +138,7 @@ public class TimerDatabase {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public Map<String, ArrayList<String>> tdGetTimerStats() {
         Map<String, ArrayList<String>> resultMap = new HashMap<>();
         ResultSet rs = null;
