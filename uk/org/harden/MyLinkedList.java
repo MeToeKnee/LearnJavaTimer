@@ -6,7 +6,6 @@ public class MyLinkedList {
         Node   next;
         Object data;
 
-        // Node constructor
         public Node(Object dataValue) {
             next = null;
             data = dataValue;
@@ -35,48 +34,38 @@ public class MyLinkedList {
 
     // LinkedList constructor
     public MyLinkedList() {
-        // this is an empty list, so the reference to the head node
-        // is set to a new node with no data
+        // empty list ... head node is set to a new node with no data and never deleted.
         head = new Node(null);
         listCount = 0;
     }
 
-    public void add(Object data)
+    public int add(Object data)
     // appends the specified element to the end of this list.
     {
-        Node myTemp = new Node(data);
-        Node myCurrent = head;
-        // starting at the head node, crawl to the end of the list
-        while (myCurrent.getNext() != null) {
-            myCurrent = myCurrent.getNext();
-        }
-        // the last node's "next" reference set to our new node
-        myCurrent.setNext(myTemp);
-        listCount++;// increment the number of elements variable
+        return add(data, listCount + 1);
     }
 
-    public void add(Object data, int index)
+    public int add(Object data, int index)
     // inserts the specified element at the specified position in this list
     {
         Node myTemp = new Node(data);
         Node myCurrent = head;
-        // crawl to the requested index or the last element in the list,
-        // whichever comes first
-        for (int i = 1; i < index && myCurrent.getNext() != null; i++) {
+        int i;
+
+        for (i = 1; i < index && myCurrent.getNext() != null; i++) {
             myCurrent = myCurrent.getNext();
         }
-        // set the new node's next-node reference to this node's next-node
-        // reference
+
         myTemp.setNext(myCurrent.getNext());
-        // now set this node's next-node reference to the new node
         myCurrent.setNext(myTemp);
-        listCount++;// increment the number of elements variable
+        listCount++;
+
+        return i;
     }
 
     public Object get(int index)
     // returns the element at the specified position in this list.
     {
-        // index must be 1 or higher
         if (index <= 0)
             return null;
 
@@ -90,10 +79,9 @@ public class MyLinkedList {
         return myCurrent.getData();
     }
 
-    public boolean remove(int index)
+    public Object remove(int index)
     // removes the element at the specified position in this list.
     {
-        // if the index is out of range, exit
         if (index < 1 || index > size())
             return false;
 
@@ -104,9 +92,10 @@ public class MyLinkedList {
 
             myCurrent = myCurrent.getNext();
         }
-        myCurrent.setNext(myCurrent.getNext().getNext());
-        listCount--; // decrement the number of elements variable
-        return true;
+        Node nodeDeleted = myCurrent.getNext();
+        myCurrent.setNext(nodeDeleted.getNext());
+        listCount--;
+        return nodeDeleted.getData();
     }
 
     public int size()
@@ -122,6 +111,4 @@ public class MyLinkedList {
         }
         return output;
     }
-
-
 }

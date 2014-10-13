@@ -3,33 +3,31 @@ package uk.org.harden;
 public class MyLinkedListTest {
 
     public static void main(String[] args) {
-        MyLinkedList lList = new MyLinkedList();
+        MyLinkedList testList = new MyLinkedList();
 
-        // add elements to LinkedList
-        lList.add("1");
-        lList.add("2");
-        lList.add("3");
-        lList.add("4");
-        lList.add("5");
+        // Add elements to the end of the list
+        System.out.println(testList.add("One"));
+        System.out.println(testList.add("Two"));
+        System.out.println(testList.add("Three"));
+        System.out.println(testList.add("Four"));
+        System.out.println(testList.add("Five"));
 
-        lList.add("7", 10);
+        // Add element off the end of the list
+        System.out.println(testList.add("Ten", 10));
 
-        /*
-         * Please note that primitive values can not be added into LinkedList
-         * directly. They must be converted to their corresponding wrapper
-         * class.
-         */
+        // Add element in the middle of the list
+        System.out.println(testList.add("Twenty", 3));
 
-        System.out.println("lList - print linkedlist: " + lList);
-        System.out.println("lList.size() - print linkedlist size: " + lList.size());
-        System.out.println("lList.get(3) - get 3rd element: " + lList.get(3));
-        System.out.println("lList.remove(2) - remove 2nd element: " + lList.remove(2));
-        System.out.println("lList.get(3) - get 3rd element: " + lList.get(3));
-        System.out.println("lList.size() - print linkedlist size: " + lList.size());
-        System.out.println("lList - print linkedlist: " + lList);
-
-        System.out.println("lList.remove(1) - remove 1st element: " + lList.remove(1));
-        System.out.println("lList - print linkedlist: " + lList);
+        // Exercise the list: to_string, size, get, remove
+        System.out.println("testList           : " + testList);
+        System.out.println("testList.size()    : " + testList.size());
+        System.out.println("testList.get(3)    : " + testList.get(3));
+        System.out.println("testList.remove(2) : " + testList.remove(2));
+        System.out.println("testList.get(3)    : " + testList.get(3));
+        System.out.println("testList.size()    : " + testList.size());
+        System.out.println("testList           : " + testList);
+        System.out.println("testList.remove(1) : " + testList.remove(1));
+        System.out.println("testList           : " + testList);
 
     }
 }
