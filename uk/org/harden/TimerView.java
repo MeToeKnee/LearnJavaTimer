@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 //import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,7 +30,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
     private final JFormattedTextField nowText;
     private final JProgressBar progressBar;
     private final AppView appView;
-    private volatile int valueNow; //atomic
+    private AtomicInteger valueNow;
 
     private Task task;
 
@@ -39,7 +40,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
         appView = parentView;
         valueInitial = 20 * count;
         valueIncrement = count;
-        valueNow = valueInitial;
+        valueNow = new AtomicInteger(valueInitial);
 
         final JLabel timerLabel = new JLabel("Timer " + count + ":");
 
@@ -133,7 +134,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
             } else {
                 if (command.equals(TimerConstants.ACTION_RESET)) {
                     appView.appMessage("(" + threadId + ") " + toString());
-                    valueNow = valueInitial;
+                    valueNow = new AtomicInteger(valueInitial);
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
                             nowText.setValue(valueNow);
@@ -171,13 +172,14 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
             stopButton.setEnabled(true);
             resetButton.setEnabled(false);
             deleteButton.setEnabled(false);
-            int progress = valueInitial - valueNow;
+            int progress = valueInitial - valueNow.get();
             int percentage = (int) getPercentage(Math.min(progress, valueInitial), valueInitial);
             setProgress(percentage);
-            while (valueNow > 0) {
+            while (valueNow.get() > 0) {
                 try {
                     Thread.sleep(1000 * valueIncrement);
-                    valueNow -= valueIncrement;
+                    //valueNow -= valueIncrement;
+                    valueNow = new AtomicInteger(valueNow.get() - valueIncrement);
                 } catch (InterruptedException ie) {
                     //ignore, we expect this to happen when we cancel the timer!
                 }
@@ -192,14 +194,14 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
                     }
                 });
 
-                progress = valueInitial - valueNow;
+                progress = valueInitial - valueNow.get();
                 percentage = (int) getPercentage(Math.min(progress, valueInitial), valueInitial);
                 setProgress(percentage);
 
                 appView.appMessage("(" + threadId + ") progress " + valueNow + "/" + progress + "(" + percentage + ")/" + valueIncrement);
             }
 
-            if (valueNow <= 0 || task.isCancelled()) {
+            if (valueNow.get() <= 0 || task.isCancelled()) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         startButton.setEnabled(true);
@@ -207,7 +209,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
                         resetButton.setEnabled(true);
                         deleteButton.setEnabled(true);
                         appView.appMessage("(" + threadId + ") Done!");
-                        if (valueNow <= 0) {
+                        if (valueNow.get() <= 0) {
                             appView.collectStats(getUuid(), TimerConstants.ACTION_DONE);
                         }
                     }
