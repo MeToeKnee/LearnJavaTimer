@@ -25,10 +25,6 @@ class TimerApp {
         guiFrame.setTitle("Timer");
 
         JComponent mainPane = new AppView(2 + (int) (Math.random() * 4));
-        System.out.println(Math.random());
-        System.out.println(Math.random());
-        System.out.println(Math.random());
-        System.out.println(Math.random());
         guiFrame.setContentPane(mainPane);
         guiFrame.pack();
         guiFrame.setSize(900, 470);
