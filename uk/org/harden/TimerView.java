@@ -9,7 +9,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 //import java.util.concurrent.atomic.AtomicInteger;
 
@@ -30,7 +29,8 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
     private final JFormattedTextField nowText;
     private final JProgressBar progressBar;
     private final AppView appView;
-    private AtomicInteger valueNow = new AtomicInteger(0);
+    //private AtomicInteger valueNow = new AtomicInteger(0);
+    private Integer valueNow;
 
     private Task task;
 
@@ -40,13 +40,14 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
         appView = parentView;
         valueInitial = 20 * count;
         valueIncrement = count;
-        valueNow.set(valueInitial);
+        //valueNow.set(valueInitial);
+        valueNow = valueInitial;
 
-        final JLabel timerLabel = new JLabel("Timer " + count + ":");
+        final JLabel timerLabel = new JLabel(TimerConstants.LABEL_TITLE + " " + count + ":");
 
-        final JLabel initialLabel = new JLabel("Initial:");
-        final JLabel incrementLabel = new JLabel("Increment:");
-        final JLabel nowLabel = new JLabel("Now:");
+        final JLabel initialLabel = new JLabel(TimerConstants.LABEL_INITIAL + ":");
+        final JLabel incrementLabel = new JLabel(TimerConstants.LABEL_INCREMENT + ":");
+        final JLabel nowLabel = new JLabel(TimerConstants.LABEL_NOW + ":");
 
         final NumberFormat nf = NumberFormat.getInstance();
         final JFormattedTextField initialText = new JFormattedTextField(nf);
@@ -111,9 +112,9 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
         final String NEW_LINE = System.getProperty("line.separator");
 
         return this.getClass().getName() + " {" + NEW_LINE +
-                " Initial: " + valueInitial + NEW_LINE +
-                " Increment: " + valueIncrement + NEW_LINE +
-                " Now: " + valueNow + NEW_LINE +
+                " " + TimerConstants.LABEL_INITIAL + ": " + valueInitial + NEW_LINE +
+                " " + TimerConstants.LABEL_INCREMENT + ": " + valueIncrement + NEW_LINE +
+                " " + TimerConstants.LABEL_NOW + ": " + valueNow + NEW_LINE +
                 "}";
     }
 
@@ -134,7 +135,8 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
             } else {
                 if (command.equals(TimerConstants.ACTION_RESET)) {
                     appView.appMessage("(" + threadId + ") " + toString());
-                    valueNow = new AtomicInteger(valueInitial);
+                    //valueNow = new AtomicInteger(valueInitial);
+                    valueNow = valueInitial;
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
                             nowText.setValue(valueNow);
@@ -172,14 +174,17 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
             stopButton.setEnabled(true);
             resetButton.setEnabled(false);
             deleteButton.setEnabled(false);
-            int progress = valueInitial - valueNow.get();
+            //int progress = valueInitial - valueNow.get();
+            int progress = valueInitial - valueNow;
             int percentage = (int) getPercentage(Math.min(progress, valueInitial), valueInitial);
             setProgress(percentage);
-            while (valueNow.get() > 0) {
+            //while (valueNow.get() > 0) {
+            while (valueNow > 0) {
                 try {
                     Thread.sleep(1000 * valueIncrement);
                     //valueNow -= valueIncrement;
-                    valueNow.set(valueNow.get() - valueIncrement);
+                    //valueNow.set(valueNow.get() - valueIncrement);
+                    valueNow = valueNow - valueIncrement;
                 } catch (InterruptedException ie) {
                     //ignore, we expect this to happen when we cancel the timer!
                 }
@@ -194,14 +199,16 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
                     }
                 });
 
-                progress = valueInitial - valueNow.get();
+                //progress = valueInitial - valueNow.get();
+                progress = valueInitial - valueNow;
                 percentage = (int) getPercentage(Math.min(progress, valueInitial), valueInitial);
                 setProgress(percentage);
 
                 appView.appMessage("(" + threadId + ") progress " + valueNow + "/" + progress + "(" + percentage + ")/" + valueIncrement);
             }
 
-            if (valueNow.get() <= 0 || task.isCancelled()) {
+            //if (valueNow.get() <= 0 || task.isCancelled()) {
+            if (valueNow <= 0 || task.isCancelled()) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         startButton.setEnabled(true);
@@ -209,7 +216,8 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
                         resetButton.setEnabled(true);
                         deleteButton.setEnabled(true);
                         appView.appMessage("(" + threadId + ") Done!");
-                        if (valueNow.get() <= 0) {
+                        //if (valueNow.get() <= 0) {
+                        if (valueNow <= 0) {
                             appView.collectStats(getUuid(), TimerConstants.ACTION_DONE);
                         }
                     }

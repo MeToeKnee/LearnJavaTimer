@@ -20,7 +20,7 @@ class TimerTCP {
         int retries = TimerConstants.TCP_RETRIES;
         while (retries-- > 0) {
             try (
-                    Socket clientSocket = new Socket("localhost", TimerConstants.TCPPortNumber);
+                    Socket clientSocket = new Socket(TimerConstants.TCPHostName, TimerConstants.TCPPortNumber);
                     ObjectOutputStream objectOutput = new ObjectOutputStream(clientSocket.getOutputStream());
                     BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             ) {
