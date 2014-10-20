@@ -30,7 +30,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
     private final JFormattedTextField nowText;
     private final JProgressBar progressBar;
     private final AppView appView;
-    private AtomicInteger valueNow;
+    private AtomicInteger valueNow = new AtomicInteger(0);
 
     private Task task;
 
@@ -40,7 +40,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
         appView = parentView;
         valueInitial = 20 * count;
         valueIncrement = count;
-        valueNow = new AtomicInteger(valueInitial);
+        valueNow.set(valueInitial);
 
         final JLabel timerLabel = new JLabel("Timer " + count + ":");
 
@@ -179,7 +179,7 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
                 try {
                     Thread.sleep(1000 * valueIncrement);
                     //valueNow -= valueIncrement;
-                    valueNow = new AtomicInteger(valueNow.get() - valueIncrement);
+                    valueNow.set(valueNow.get() - valueIncrement);
                 } catch (InterruptedException ie) {
                     //ignore, we expect this to happen when we cancel the timer!
                 }
