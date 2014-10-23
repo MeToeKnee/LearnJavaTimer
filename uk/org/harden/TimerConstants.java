@@ -25,4 +25,6 @@ final class TimerConstants {
 
     static final String TCPHostName   = "localhost";
     static final int    TCPPortNumber = 2020;
+
+    static final int    MaxNumberOfThreads = 6;
 }

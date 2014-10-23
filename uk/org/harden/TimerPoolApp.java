@@ -2,11 +2,13 @@ package uk.org.harden;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 //import java.util.logging.Logger;
 
-class TimerApp {
+class TimerPoolApp {
 
-    //private static final Logger LOGGER = Logger.getLogger(TimerApp.class.getName());
+    //private static final Logger LOGGER = Logger.getLogger(TimerPoolApp.class.getName());
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -24,7 +26,7 @@ class TimerApp {
         guiFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         guiFrame.setTitle("Timer");
 
-        JComponent mainPane = new AppView(2 + (int) (Math.random() * 4));
+        JComponent mainPane = new AppView( 2 + (int) (Math.random() * 4) );
         guiFrame.setContentPane(mainPane);
         guiFrame.pack();
         guiFrame.setSize(900, 470);

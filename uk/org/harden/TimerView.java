@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.UUID;
+import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 //import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,9 +34,11 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
     private Integer valueNow;
 
     private Task task;
+    private final Executor executor;
 
-    public TimerView(final int count, final AppView parentView) {
+    public TimerView(final Executor executor, final int count, final AppView parentView) {
 
+        this.executor = executor;
         threadId = count;
         appView = parentView;
         valueInitial = 20 * count;
@@ -124,7 +127,8 @@ class TimerView extends JPanel implements ActionListener, PropertyChangeListener
         if (command.equals(TimerConstants.ACTION_START)) {
             task = new Task();
             task.addPropertyChangeListener(this);
-            task.execute();
+            //task.execute();
+            executor.execute(task);
         } else {
             if (command.equals(TimerConstants.ACTION_STOP)) {
                 if (task == null) {

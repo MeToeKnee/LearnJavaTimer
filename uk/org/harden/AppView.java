@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 //import java.util.logging.Logger;
 
@@ -19,8 +21,11 @@ class AppView extends JPanel implements ActionListener {
     private final JComponent timersPane = new JPanel();
     private final JTextArea taskOutput = new JTextArea(5, 50);
     private final JTable statistics;
+    //private final Executor executor = Executors.newFixedThreadPool( TimerConstants.MaxNumberOfThreads );
+    private final Executor executor = Executors.newFixedThreadPool( TimerConstants.MaxNumberOfThreads );
 
-    public AppView(final int count) {
+
+    public AppView( final int count ) {
 
         setLayout(new BorderLayout());
 
@@ -73,7 +78,7 @@ class AppView extends JPanel implements ActionListener {
 
     private void addNewTimer() {
         final int count = referenceNumber.incrementAndGet();
-        final TimerView newContentPane = new TimerView(count, this);
+        final TimerView newContentPane = new TimerView(executor, count, this);
         newContentPane.setVisible(true);
         newContentPane.setAutoscrolls(true);
         timersPane.add(newContentPane);
