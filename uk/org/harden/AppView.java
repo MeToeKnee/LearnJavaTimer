@@ -1,7 +1,5 @@
 package uk.org.harden;
 
-//import javax.swing.*;
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -11,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 //import java.util.logging.Logger;
-
-//import java.awt.*;
-
 
 class AppView extends JPanel implements ActionListener {
 

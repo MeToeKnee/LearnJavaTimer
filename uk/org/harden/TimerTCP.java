@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("UnnecessarySemicolon")
 class TimerTCP {
 
-    private static final Logger LOGGER = Logger.getLogger(TimerDatabase.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TimerTCP.class.getName());
 
     @SuppressWarnings("UnusedReturnValue")
     public static boolean TimerTCPSend(Map<String, ArrayList<String>> statsTable) {

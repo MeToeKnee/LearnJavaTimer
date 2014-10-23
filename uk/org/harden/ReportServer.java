@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("UnnecessarySemicolon")
 class ReportServer {
 
-    private static final Logger LOGGER = Logger.getLogger(TimerApp.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ReportServer.class.getName());
 
     public static void main(String[] args) {
 
