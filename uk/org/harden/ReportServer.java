@@ -35,9 +35,7 @@ class ReportServer {
                     int cols = 0;
 
                     try {
-                        Object object = objectInput.readObject();
-                        //noinspection unchecked
-                        clientObject = (Map<String, ArrayList<String>>) object;
+                        clientObject = (Map<String, ArrayList<String>>) objectInput.readObject();
                         rows = clientObject.size();
                         cols = clientObject.get("Header").size();
                         LOGGER.info("(" + counter + ") " + clientObject.toString());
